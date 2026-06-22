@@ -21,3 +21,5 @@ API-Key eintragen:
 
 App starten:
     streamlit run frontend.py
+
+# https://ev-dashboard-knv2hkatcedsjkp3qketnr.streamlit.app/    
