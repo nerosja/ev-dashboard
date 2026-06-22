@@ -1,0 +1,23 @@
+**E-Mobility TCO & Infrastruktur Dashboard**
+
+Ein datengetriebenes Python-Dashboard zur Berechnung der realen "Total Cost of Ownership" (TCO) von Elektroautos inklusive regionaler Ladeinfrastruktur-Analyse.
+
+**Tech Stack**
+
+Backend: Python 3, SQLite3, Pandas
+APIs: OpenChargeMap (REST), Geopy (Nominatim)
+Frontend: Streamlit
+
+**Lokale Installation**
+
+Repository klonen:
+    git clone [https://github.com/nerosja/ev-dashboard.git](https://github.com/nerosja/ev-dashboard.git)
+
+Abhängigkeiten installieren:
+    pip install -r requirements.txt
+
+API-Key eintragen:
+    Ersetze den API_KEY in der ev_script.py mit deinem eigenen OpenChargeMap Key.
+
+App starten:
+    streamlit run frontend.py

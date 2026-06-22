@@ -1,0 +1,13 @@
+# Datenbanken
+*.db 
+*.sqlite3
+
+# Rohdaten
+data/*.xlsx *.csv *.json
+
+# Python Cache & Environments
+pychache/ *.pyc .env venv/ env/ .venv/
+*.env
+
+# Streamlit
+.streamlit/
