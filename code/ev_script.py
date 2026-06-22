@@ -3,10 +3,11 @@ import requests
 import sqlite3
 import json
 from geopy.geocoders import Nominatim
+import streamlit as st
 
 # --- KONFIGURATION ---
 
-API_KEY = "DEIN-API-KEY-HIER"      # OpenChargeMap
+API_KEY = st.secrets["OCM_API_KEY"]      # OpenChargeMap
 USER_AGENT = "ev costs in a local field (ComSci-Project)"
 EV_DATABASE_NAME = "ev_datenbank.db"
 JSON_DATEI_PFAD = "data/open-ev-data-v1.24.0.json" 
