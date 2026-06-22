@@ -5,15 +5,14 @@ import json
 from geopy.geocoders import Nominatim
 
 # --- KONFIGURATION ---
-API_KEY = "DEIN-API-KEY-Hier"      # OpenChargeMap
+
+API_KEY = "DEIN-API-KEY-HIER"      # OpenChargeMap
 USER_AGENT = "ev costs in a local field (ComSci-Project)"
 EV_DATABASE_NAME = "ev_datenbank.db"
 JSON_DATEI_PFAD = "data/open-ev-data-v1.24.0.json" 
 
 
-# ==========================================
-# 1. DATEN-IMPORT & SETUP (ETL-Pipeline)
-# ==========================================
+# --------------- DATEN IMPORT ------------------
 
 def setup_database():
     conn = sqlite3.connect(EV_DATABASE_NAME)
@@ -77,9 +76,8 @@ def import_plz_excel():
     print("Excel-Import abgeschlossen!")
 
 
-# ==========================================
-# 2. OPEN CHARGE MAP API
-# ==========================================
+
+# ---------- OPEN CHARGE MAP API --------------------
 
 def ladesaeulen_umkreis(lat, lng, umkreis_km=50):
     url_open_charge_map = "https://api.openchargemap.io/v3/poi/"
@@ -149,9 +147,9 @@ def speichere_ladesaeulen_in_db(poi_liste):
         print(f"{len(poi_liste)} Ladesäulen gespeichert.")
 
 
-# ==========================================
-# 3. BUSINESS LOGIK & BERECHNUNG
-# ==========================================
+
+# -------- BUSINESS LOGIK & BERECHNUNG -------------------
+
 
 def convert_plz_to_latlgn(plz):
     UNIQUE_USER_AGENT = "ev_cost_perMonth_UnqiueAgent123_projectE"
@@ -239,7 +237,7 @@ def get_evcar_range_real(reichweite_wltp, waerme_pumpe=0):
     real range acc. to gemini: {real_range_gemini},
     """)
     
-    # FIX: Runde Klammern -> Tuple (kein Set!)
+    
     return (real_range_gemini, range_100to20_percent, range_80to20_percent, highway_cold_weather, highway_mild_weather, combined_cold_weather, combined_mild_weather, city_cold_weather, city_mild_weather)
     
     
@@ -273,7 +271,6 @@ def berechne_gesamtkosten(car_id, plz, fahrleistung_pro_jahr, ladeprofil="mix"):
         verbrauch_100km *= 1.15
         
     # Reale Reichweite und Verbrauch
-    # FIX: Tuple entpacken (Wir greifen mit [0] auf real_range_gemini zu)
     real_range_tuple = get_evcar_range_real(auto["reichweite_wltp"], auto["waermepumpe"])
     real_range_gemini = real_range_tuple[0] 
     
@@ -300,7 +297,7 @@ def berechne_gesamtkosten(car_id, plz, fahrleistung_pro_jahr, ladeprofil="mix"):
     kosten = get_kwh_price_in_region(fahrleistung_pro_jahr, verbrauch_100km, bundesland, ladeprofil)  
     kostenreal = get_kwh_price_in_region(fahrleistung_pro_jahr, realverbrauch_100km, bundesland, ladeprofil)
     
-    # FIX: Einfache Float-Variablen ausgeben (keine Listen-Indizes mehr)
+    
     print(f"\n--- Auswertung für Region: {kreis} ({bundesland}) ---")
     print(f"Gewähltes Fahrzeug: {auto['marke']} {auto['modell']}")
     print(f"Angenommener Verbrauch (WLTP inkl. WP-Check): {round(verbrauch_100km, 2)} kWh/100km")
@@ -310,9 +307,8 @@ def berechne_gesamtkosten(car_id, plz, fahrleistung_pro_jahr, ladeprofil="mix"):
     
     return kostenreal
 
-# ==========================================
-# HAUPTPROGRAMM (STEUERPULT)
-# ==========================================
+
+# --------------------------
 
 if __name__ == "__main__":
     print("--- EV Dashboard Backend Start ---")
