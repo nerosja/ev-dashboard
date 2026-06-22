@@ -1,13 +1,25 @@
-# Datenbanken
-*.db 
+#Datenbanken
+
+*.db
 *.sqlite3
 
-# Rohdaten
-data/*.xlsx *.csv *.json
+#Rohdaten (Ignoriert den kompletten Ordner und spezifische Endungen)
 
-# Python Cache & Environments
-pychache/ *.pyc .env venv/ env/ .venv/
+data/
+*.xlsx
+*.csv
+*.json
+
+#Python Cache & Environments
+
+pycache/
+*.pyc
+.env
 *.env
+venv/
+env/
+.venv/
 
-# Streamlit
+#Streamlit
+
 .streamlit/
