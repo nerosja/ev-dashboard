@@ -1,7 +1,7 @@
 #Datenbanken
 
-*.db
-*.sqlite3
+#*.db
+#*.sqlite3
 
 #Rohdaten (Ignoriert den kompletten Ordner und spezifische Endungen)
 
